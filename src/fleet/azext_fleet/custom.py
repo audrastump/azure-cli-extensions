@@ -729,15 +729,35 @@ def create_managed_namespace(cmd,
                            annotations=None,
                            no_wait=False):
     managed_namespace_model = cmd.get_models(
-        "ManagedNamespace",
+        "FleetManagedNamespace",
+        resource_type=CUSTOM_MGMT_FLEET,
+        operation_group="managed_namespaces"
+    )
+    
+    managed_namespace_properties_model = cmd.get_models(
+        "ManagedNamespaceProperties",
+        resource_type=CUSTOM_MGMT_FLEET,
+        operation_group="managed_namespaces"
+    )
+    
+    fleet_managed_namespace_properties_model = cmd.get_models(
+        "FleetManagedNamespaceProperties",
         resource_type=CUSTOM_MGMT_FLEET,
         operation_group="managed_namespaces"
     )
 
-    managed_namespace = managed_namespace_model(
-        namespace_name=namespace_name or managed_namespace_name,
+    # Create the nested properties structure
+    managed_namespace_props = managed_namespace_properties_model(
         labels=labels,
         annotations=annotations
+    )
+    
+    fleet_managed_namespace_props = fleet_managed_namespace_properties_model(
+        managed_namespace_properties=managed_namespace_props
+    )
+
+    managed_namespace = managed_namespace_model(
+        properties=fleet_managed_namespace_props
     )
 
     return sdk_no_wait(
@@ -759,24 +779,24 @@ def update_managed_namespace(cmd,
                            labels=None,
                            annotations=None,
                            no_wait=False):
-    # Get the existing managed namespace
-    existing_managed_namespace = client.get(resource_group_name, fleet_name, managed_namespace_name)
     
-    # Update with new values if provided
-    if namespace_name is not None:
-        existing_managed_namespace.namespace_name = namespace_name
-    if labels is not None:
-        existing_managed_namespace.labels = labels
-    if annotations is not None:
-        existing_managed_namespace.annotations = annotations
+    fleet_managed_namespace_patch_model = cmd.get_models(
+        "FleetManagedNamespacePatch",
+        resource_type=CUSTOM_MGMT_FLEET,
+        operation_group="managed_namespaces"
+    )
+
+    # Create a patch object with only the tags that can be updated
+    # Note: In this API version, we may only be able to update tags, not the namespace properties
+    patch = fleet_managed_namespace_patch_model()
 
     return sdk_no_wait(
         no_wait,
-        client.begin_create_or_update,
+        client.begin_update,
         resource_group_name=resource_group_name,
         fleet_name=fleet_name,
         managed_namespace_name=managed_namespace_name,
-        resource=existing_managed_namespace
+        properties=patch
     )
 
 
