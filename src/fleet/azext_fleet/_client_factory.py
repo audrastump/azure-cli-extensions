@@ -29,6 +29,10 @@ def cf_managed_namespaces(cli_ctx, *_):
     return get_container_service_client(cli_ctx).managed_namespaces
 
 
+# Gates functionality - will be available when v2025_08_01_preview API supports gates
+# def cf_gates(cli_ctx, *_):
+#     return get_container_service_client(cli_ctx).gates
+
 
 def cf_update_runs(cli_ctx, *_):
     return get_container_service_client(cli_ctx).update_runs
