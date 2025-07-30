@@ -180,12 +180,10 @@ def load_arguments(self, _):
         c.argument('managed_namespace_name', options_list=['--name', '-n'], help='Name of the managed namespace.')
 
     with self.argument_context('fleet managednamespace create') as c:
-        c.argument('namespace_name', help='The name of the Kubernetes namespace to be created on member clusters. If not specified, defaults to the managed namespace name.')
         c.argument('labels', labels_type, help='Labels to apply to the managed namespace.')
         c.argument('annotations', type=validate_labels, metavar='KEY=VALUE', help='Annotations to apply to the managed namespace: key[=value] [key[=value] ...].')
 
     with self.argument_context('fleet managednamespace update') as c:
-        c.argument('namespace_name', help='The name of the Kubernetes namespace to be created on member clusters.')
         c.argument('labels', labels_type, help='Labels to apply to the managed namespace.')
         c.argument('annotations', type=validate_labels, metavar='KEY=VALUE', help='Annotations to apply to the managed namespace: key[=value] [key[=value] ...].')
 

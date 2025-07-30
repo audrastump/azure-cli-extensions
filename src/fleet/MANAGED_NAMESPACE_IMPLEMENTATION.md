@@ -43,19 +43,19 @@ The implementation adds support for the `az fleet managednamespace` command grou
 **Commands**:
 ```bash
 # Create a managed namespace
-az fleet managednamespace create -g MyFleetResourceGroup -f MyFleetName -n MyManagedNamespace --namespace-name my-namespace
+az fleet managednamespace create -g MyFleetResourceGroup -f MyFleetName -n my-namespace
 
 # List managed namespaces  
 az fleet managednamespace list -g MyFleetResourceGroup -f MyFleetName
 
 # Show managed namespace details
-az fleet managednamespace show -g MyFleetResourceGroup -f MyFleetName -n MyManagedNamespace
+az fleet managednamespace show -g MyFleetResourceGroup -f MyFleetName -n my-namespace
 
 # Update managed namespace
-az fleet managednamespace update -g MyFleetResourceGroup -f MyFleetName -n MyManagedNamespace --labels env=staging
+az fleet managednamespace update -g MyFleetResourceGroup -f MyFleetName -n my-namespace --labels env=staging
 
 # Delete managed namespace
-az fleet managednamespace delete -g MyFleetResourceGroup -f MyFleetName -n MyManagedNamespace
+az fleet managednamespace delete -g MyFleetResourceGroup -f MyFleetName -n my-namespace
 ```
 
 ### 4. Files Modified
