@@ -8,6 +8,7 @@ from azure.cli.core.commands import CliCommandType
 from azext_fleet._client_factory import (
     cf_fleets,
     cf_fleet_members,
+    cf_managed_namespaces,
     cf_update_runs,
     cf_fleet_update_strategies,
     cf_auto_upgrade_profiles,
@@ -28,6 +29,12 @@ def load_command_table(self, _):
         operations_tmpl="azext_fleet.vendored_sdks.operations._fleet_members_operations#FleetMembersOperations.{}",
         operation_group="fleet_members",
         client_factory=cf_fleet_members
+    )
+
+    managed_namespaces_sdk = CliCommandType(
+        operations_tmpl="azext_fleet.vendored_sdks.operations._managed_namespaces_operations#ManagedNamespacesOperations.{}",
+        operation_group="managed_namespaces",
+        client_factory=cf_managed_namespaces
     )
 
     update_runs_sdk = CliCommandType(
@@ -79,6 +86,15 @@ def load_command_table(self, _):
         g.custom_command("list", "list_fleet_member")
         g.custom_show_command("show", "show_fleet_member")
         g.custom_command("reconcile", "reconcile_fleet_member", supports_no_wait=True)
+        g.wait_command("wait")
+
+    # fleet managed namespaces command group
+    with self.command_group("fleet managednamespace", managed_namespaces_sdk, client_factory=cf_managed_namespaces) as g:
+        g.custom_command("create", "create_managed_namespace", supports_no_wait=True)
+        g.custom_command("update", "update_managed_namespace", supports_no_wait=True)
+        g.custom_command("delete", "delete_managed_namespace", supports_no_wait=True, confirmation=True)
+        g.custom_command("list", "list_managed_namespaces")
+        g.custom_show_command("show", "show_managed_namespace")
         g.wait_command("wait")
 
     # fleet update runs command group

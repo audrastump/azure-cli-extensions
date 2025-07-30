@@ -988,6 +988,200 @@ class FleetMemberUpdate(_serialization.Model):
         self.labels = labels
 
 
+class ManagedNamespace(ProxyResource):
+    """A managed namespace in a Fleet.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar id: Fully qualified resource ID for the resource. E.g.
+     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}".
+    :vartype id: str
+    :ivar name: The name of the resource.
+    :vartype name: str
+    :ivar type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or
+     "Microsoft.Storage/storageAccounts".
+    :vartype type: str
+    :ivar system_data: Azure Resource Manager metadata containing createdBy and modifiedBy
+     information.
+    :vartype system_data: ~azure.mgmt.containerservicefleet.v2025_04_01_preview.models.SystemData
+    :ivar e_tag: If eTag is provided in the response body, it may also be provided as a header per
+     the normal etag convention.  Entity tags are used for comparing two or more entities from the
+     same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match
+     (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.
+    :vartype e_tag: str
+    :ivar namespace_name: The name of the Kubernetes namespace to be created on member clusters.
+    :vartype namespace_name: str
+    :ivar labels: The labels for the managed namespace.
+    :vartype labels: dict[str, str]
+    :ivar annotations: The annotations for the managed namespace.
+    :vartype annotations: dict[str, str]
+    :ivar provisioning_state: The status of the last operation. Known values are: "Succeeded",
+     "Failed", "Canceled", "Creating", "Deleting", and "Updating".
+    :vartype provisioning_state: str or
+     ~azure.mgmt.containerservicefleet.v2025_04_01_preview.models.ManagedNamespaceProvisioningState
+    :ivar status: Status information of the last operation for managed namespace.
+    :vartype status: ~azure.mgmt.containerservicefleet.v2025_04_01_preview.models.ManagedNamespaceStatus
+    """
+
+    _validation = {
+        "id": {"readonly": True},
+        "name": {"readonly": True},
+        "type": {"readonly": True},
+        "system_data": {"readonly": True},
+        "e_tag": {"readonly": True},
+        "namespace_name": {"max_length": 63, "min_length": 1, "pattern": r"^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"},
+        "provisioning_state": {"readonly": True},
+        "status": {"readonly": True},
+    }
+
+    _attribute_map = {
+        "id": {"key": "id", "type": "str"},
+        "name": {"key": "name", "type": "str"},
+        "type": {"key": "type", "type": "str"},
+        "system_data": {"key": "systemData", "type": "SystemData"},
+        "e_tag": {"key": "eTag", "type": "str"},
+        "namespace_name": {"key": "properties.namespaceName", "type": "str"},
+        "labels": {"key": "properties.labels", "type": "{str}"},
+        "annotations": {"key": "properties.annotations", "type": "{str}"},
+        "provisioning_state": {"key": "properties.provisioningState", "type": "str"},
+        "status": {"key": "properties.status", "type": "ManagedNamespaceStatus"},
+    }
+
+    def __init__(
+        self,
+        *,
+        namespace_name: Optional[str] = None,
+        labels: Optional[Dict[str, str]] = None,
+        annotations: Optional[Dict[str, str]] = None,
+        **kwargs: Any
+    ) -> None:
+        """
+        :keyword namespace_name: The name of the Kubernetes namespace to be created on member clusters.
+        :paramtype namespace_name: str
+        :keyword labels: The labels for the managed namespace.
+        :paramtype labels: dict[str, str]
+        :keyword annotations: The annotations for the managed namespace.
+        :paramtype annotations: dict[str, str]
+        """
+        super().__init__(**kwargs)
+        self.e_tag: Optional[str] = None
+        self.namespace_name = namespace_name
+        self.labels = labels
+        self.annotations = annotations
+        self.provisioning_state: Optional[Union[str, "_models.ManagedNamespaceProvisioningState"]] = None
+        self.status: Optional["_models.ManagedNamespaceStatus"] = None
+
+
+class ManagedNamespaceListResult(_serialization.Model):
+    """The response of a ManagedNamespace list operation.
+
+    :ivar value: The ManagedNamespace items on this page.
+    :vartype value: list[~azure.mgmt.containerservicefleet.v2025_04_01_preview.models.ManagedNamespace]
+    :ivar next_link: The link to the next page of items.
+    :vartype next_link: str
+    """
+
+    _attribute_map = {
+        "value": {"key": "value", "type": "[ManagedNamespace]"},
+        "next_link": {"key": "nextLink", "type": "str"},
+    }
+
+    def __init__(
+        self,
+        *,
+        value: Optional[List["_models.ManagedNamespace"]] = None,
+        next_link: Optional[str] = None,
+        **kwargs: Any
+    ) -> None:
+        """
+        :keyword value: The ManagedNamespace items on this page.
+        :paramtype value: list[~azure.mgmt.containerservicefleet.v2025_04_01_preview.models.ManagedNamespace]
+        :keyword next_link: The link to the next page of items.
+        :paramtype next_link: str
+        """
+        super().__init__(**kwargs)
+        self.value = value
+        self.next_link = next_link
+
+
+class ManagedNamespaceStatus(_serialization.Model):
+    """Status information of the last operation for managed namespace.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar conditions: List of status conditions to indicate the health of a managed namespace.
+    :vartype conditions: list[~azure.mgmt.containerservicefleet.v2025_04_01_preview.models.ManagedNamespaceStatusCondition]
+    """
+
+    _validation = {
+        "conditions": {"readonly": True},
+    }
+
+    _attribute_map = {
+        "conditions": {"key": "conditions", "type": "[ManagedNamespaceStatusCondition]"},
+    }
+
+    def __init__(self, **kwargs: Any) -> None:
+        """
+        """
+        super().__init__(**kwargs)
+        self.conditions: Optional[List["_models.ManagedNamespaceStatusCondition"]] = None
+
+
+class ManagedNamespaceStatusCondition(_serialization.Model):
+    """A condition attached to the managed namespace.
+
+    Variables are only populated by the server, and will be ignored when sending a request.
+
+    :ivar last_transition_time: The last time this condition changed.
+    :vartype last_transition_time: ~datetime.datetime
+    :ivar message: A readable message indicating details about the transition.
+    :vartype message: str
+    :ivar observed_generation: The generation of the managed namespace that this condition relates to.
+    :vartype observed_generation: int
+    :ivar reason: The reason for the condition's last transition.
+    :vartype reason: str
+    :ivar severity: The severity of the condition, one of 'error', 'warning', 'info'.
+    :vartype severity: str
+    :ivar status: The status of the condition, one of 'True', 'False', 'Unknown'.
+    :vartype status: str
+    :ivar type: The type of the condition.
+    :vartype type: str
+    """
+
+    _validation = {
+        "last_transition_time": {"readonly": True},
+        "message": {"readonly": True},
+        "observed_generation": {"readonly": True},
+        "reason": {"readonly": True},
+        "severity": {"readonly": True},
+        "status": {"readonly": True},
+        "type": {"readonly": True},
+    }
+
+    _attribute_map = {
+        "last_transition_time": {"key": "lastTransitionTime", "type": "iso-8601"},
+        "message": {"key": "message", "type": "str"},
+        "observed_generation": {"key": "observedGeneration", "type": "int"},
+        "reason": {"key": "reason", "type": "str"},
+        "severity": {"key": "severity", "type": "str"},
+        "status": {"key": "status", "type": "str"},
+        "type": {"key": "type", "type": "str"},
+    }
+
+    def __init__(self, **kwargs: Any) -> None:
+        """
+        """
+        super().__init__(**kwargs)
+        self.last_transition_time: Optional[datetime.datetime] = None
+        self.message: Optional[str] = None
+        self.observed_generation: Optional[int] = None
+        self.reason: Optional[str] = None
+        self.severity: Optional[str] = None
+        self.status: Optional[str] = None
+        self.type: Optional[str] = None
+
+
 class FleetPatch(_serialization.Model):
     """Properties of a Fleet that can be patched.
 

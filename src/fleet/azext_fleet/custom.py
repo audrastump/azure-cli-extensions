@@ -716,3 +716,102 @@ def approve_gate(cmd,  # pylint: disable=unused-argument
                  gate_name,
                  no_wait=False):
     return _patch_gate(cmd, client, resource_group_name, fleet_name, gate_name, "Completed", no_wait)
+
+
+# Managed namespace operations
+def create_managed_namespace(cmd,
+                           client,
+                           resource_group_name,
+                           fleet_name,
+                           managed_namespace_name,
+                           namespace_name=None,
+                           labels=None,
+                           annotations=None,
+                           no_wait=False):
+    managed_namespace_model = cmd.get_models(
+        "ManagedNamespace",
+        resource_type=CUSTOM_MGMT_FLEET,
+        operation_group="managed_namespaces"
+    )
+
+    managed_namespace = managed_namespace_model(
+        namespace_name=namespace_name or managed_namespace_name,
+        labels=labels,
+        annotations=annotations
+    )
+
+    return sdk_no_wait(
+        no_wait,
+        client.begin_create_or_update,
+        resource_group_name=resource_group_name,
+        fleet_name=fleet_name,
+        managed_namespace_name=managed_namespace_name,
+        resource=managed_namespace
+    )
+
+
+def update_managed_namespace(cmd,
+                           client,
+                           resource_group_name,
+                           fleet_name,
+                           managed_namespace_name,
+                           namespace_name=None,
+                           labels=None,
+                           annotations=None,
+                           no_wait=False):
+    # Get the existing managed namespace
+    existing_managed_namespace = client.get(resource_group_name, fleet_name, managed_namespace_name)
+    
+    # Update with new values if provided
+    if namespace_name is not None:
+        existing_managed_namespace.namespace_name = namespace_name
+    if labels is not None:
+        existing_managed_namespace.labels = labels
+    if annotations is not None:
+        existing_managed_namespace.annotations = annotations
+
+    return sdk_no_wait(
+        no_wait,
+        client.begin_create_or_update,
+        resource_group_name=resource_group_name,
+        fleet_name=fleet_name,
+        managed_namespace_name=managed_namespace_name,
+        resource=existing_managed_namespace
+    )
+
+
+def delete_managed_namespace(cmd,  # pylint: disable=unused-argument
+                           client,
+                           resource_group_name,
+                           fleet_name,
+                           managed_namespace_name,
+                           no_wait=False):
+    return sdk_no_wait(
+        no_wait,
+        client.begin_delete,
+        resource_group_name=resource_group_name,
+        fleet_name=fleet_name,
+        managed_namespace_name=managed_namespace_name
+    )
+
+
+def show_managed_namespace(cmd,  # pylint: disable=unused-argument
+                         client,
+                         resource_group_name,
+                         fleet_name,
+                         managed_namespace_name):
+    return client.get(
+        resource_group_name=resource_group_name,
+        fleet_name=fleet_name,
+        managed_namespace_name=managed_namespace_name
+    )
+
+
+def list_managed_namespaces(cmd,  # pylint: disable=unused-argument
+                           client,
+                           resource_group_name,
+                           fleet_name):
+    return client.list_by_fleet(
+        resource_group_name=resource_group_name,
+        fleet_name=fleet_name
+    )

@@ -25,6 +25,10 @@ def cf_fleet_members(cli_ctx, *_):
     return get_container_service_client(cli_ctx).fleet_members
 
 
+def cf_managed_namespaces(cli_ctx, *_):
+    return get_container_service_client(cli_ctx).managed_namespaces
+
+
 def cf_gates(cli_ctx, *_):
     return get_container_service_client(cli_ctx).gates
 

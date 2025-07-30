@@ -27,6 +27,7 @@ from .operations import (
     FleetUpdateStrategiesOperations,
     FleetsOperations,
     GatesOperations,
+    ManagedNamespacesOperations,
     Operations,
     UpdateRunsOperations,
 )
@@ -54,6 +55,9 @@ class ContainerServiceFleetMgmtClient:  # pylint: disable=too-many-instance-attr
     :ivar fleet_members: FleetMembersOperations operations
     :vartype fleet_members:
      azure.mgmt.containerservicefleet.v2025_04_01_preview.operations.FleetMembersOperations
+    :ivar managed_namespaces: ManagedNamespacesOperations operations
+    :vartype managed_namespaces:
+     azure.mgmt.containerservicefleet.v2025_04_01_preview.operations.ManagedNamespacesOperations
     :ivar update_runs: UpdateRunsOperations operations
     :vartype update_runs:
      azure.mgmt.containerservicefleet.v2025_04_01_preview.operations.UpdateRunsOperations
@@ -125,6 +129,9 @@ class ContainerServiceFleetMgmtClient:  # pylint: disable=too-many-instance-attr
             self._client, self._config, self._serialize, self._deserialize, "2025-04-01-preview"
         )
         self.fleet_members = FleetMembersOperations(
+            self._client, self._config, self._serialize, self._deserialize, "2025-04-01-preview"
+        )
+        self.managed_namespaces = ManagedNamespacesOperations(
             self._client, self._config, self._serialize, self._deserialize, "2025-04-01-preview"
         )
         self.update_runs = UpdateRunsOperations(

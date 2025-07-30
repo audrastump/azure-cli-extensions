@@ -83,6 +83,23 @@ class FleetMemberProvisioningState(str, Enum, metaclass=CaseInsensitiveEnumMeta)
     """The provisioning state of a member being updated."""
 
 
+class ManagedNamespaceProvisioningState(str, Enum, metaclass=CaseInsensitiveEnumMeta):
+    """The provisioning state of the ManagedNamespace resource."""
+
+    SUCCEEDED = "Succeeded"
+    """Resource has been created."""
+    FAILED = "Failed"
+    """Resource creation failed."""
+    CANCELED = "Canceled"
+    """Resource creation was canceled."""
+    CREATING = "Creating"
+    """The provisioning state of a managed namespace being created."""
+    DELETING = "Deleting"
+    """The provisioning state of a managed namespace being deleted."""
+    UPDATING = "Updating"
+    """The provisioning state of a managed namespace being updated."""
+
+
 class FleetProvisioningState(str, Enum, metaclass=CaseInsensitiveEnumMeta):
     """The provisioning state of the last accepted operation."""
 
