@@ -33,7 +33,7 @@ def load_command_table(self, _):
 
     managed_namespaces_sdk = CliCommandType(
         operations_tmpl="azext_fleet.vendored_sdks.v2025_08_01_preview.operations._operations#FleetManagedNamespacesOperations.{}",
-        operation_group="managed_namespaces",
+        operation_group="fleet_managed_namespaces",
         client_factory=cf_managed_namespaces
     )
 

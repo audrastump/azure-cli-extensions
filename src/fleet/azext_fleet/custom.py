@@ -653,20 +653,17 @@ def create_managed_namespace(cmd,
                            no_wait=False):
     managed_namespace_model = cmd.get_models(
         "FleetManagedNamespace",
-        resource_type=CUSTOM_MGMT_FLEET,
-        operation_group="managed_namespaces"
+        resource_type=CUSTOM_MGMT_FLEET
     )
     
     managed_namespace_properties_model = cmd.get_models(
         "ManagedNamespaceProperties",
-        resource_type=CUSTOM_MGMT_FLEET,
-        operation_group="managed_namespaces"
+        resource_type=CUSTOM_MGMT_FLEET
     )
     
     fleet_managed_namespace_properties_model = cmd.get_models(
         "FleetManagedNamespaceProperties",
-        resource_type=CUSTOM_MGMT_FLEET,
-        operation_group="managed_namespaces"
+        resource_type=CUSTOM_MGMT_FLEET
     )
 
     # Create the nested properties structure
@@ -704,8 +701,7 @@ def update_managed_namespace(cmd,
     
     fleet_managed_namespace_patch_model = cmd.get_models(
         "FleetManagedNamespacePatch",
-        resource_type=CUSTOM_MGMT_FLEET,
-        operation_group="managed_namespaces"
+        resource_type=CUSTOM_MGMT_FLEET
     )
 
     # Create a patch object with only the tags that can be updated

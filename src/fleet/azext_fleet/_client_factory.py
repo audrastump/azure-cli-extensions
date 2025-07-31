@@ -9,7 +9,7 @@ from azure.cli.core.profiles import (
     ResourceType
 )
 
-CUSTOM_MGMT_FLEET = CustomResourceType('azext_fleet.vendored_sdks', 'ContainerServiceFleetMgmtClient')
+CUSTOM_MGMT_FLEET = CustomResourceType('azext_fleet.vendored_sdks.v2025_08_01_preview', 'ContainerServiceFleetMgmtClient')
 
 
 # container service clients
@@ -26,7 +26,7 @@ def cf_fleet_members(cli_ctx, *_):
 
 
 def cf_managed_namespaces(cli_ctx, *_):
-    return get_container_service_client(cli_ctx).managed_namespaces
+    return get_container_service_client(cli_ctx).fleet_managed_namespaces
 
 
 # Gates functionality - will be available when v2025_08_01_preview API supports gates
