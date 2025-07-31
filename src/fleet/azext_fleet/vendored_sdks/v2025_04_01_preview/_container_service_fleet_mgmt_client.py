@@ -21,7 +21,6 @@ from ._serialization import Deserializer, Serializer
 from .operations import (
     AutoUpgradeProfileOperationsOperations,
     AutoUpgradeProfilesOperations,
-    FleetManagedNamespacesOperations,
     FleetMembersOperations,
     FleetUpdateStrategiesOperations,
     FleetsOperations,
@@ -48,8 +47,6 @@ class ContainerServiceFleetMgmtClient:  # pylint: disable=too-many-instance-attr
      azure.mgmt.containerservicefleet.operations.AutoUpgradeProfileOperationsOperations
     :ivar fleet_members: FleetMembersOperations operations
     :vartype fleet_members: azure.mgmt.containerservicefleet.operations.FleetMembersOperations
-    :ivar fleet_managed_namespaces: FleetManagedNamespacesOperations operations
-    :vartype fleet_managed_namespaces: azure.mgmt.containerservicefleet.operations.FleetManagedNamespacesOperations
     :ivar update_runs: UpdateRunsOperations operations
     :vartype update_runs: azure.mgmt.containerservicefleet.operations.UpdateRunsOperations
     :ivar fleet_update_strategies: FleetUpdateStrategiesOperations operations
@@ -111,7 +108,6 @@ class ContainerServiceFleetMgmtClient:  # pylint: disable=too-many-instance-attr
             self._client, self._config, self._serialize, self._deserialize
         )
         self.fleet_members = FleetMembersOperations(self._client, self._config, self._serialize, self._deserialize)
-        self.fleet_managed_namespaces = FleetManagedNamespacesOperations(self._client, self._config, self._serialize, self._deserialize)
         self.update_runs = UpdateRunsOperations(self._client, self._config, self._serialize, self._deserialize)
         self.fleet_update_strategies = FleetUpdateStrategiesOperations(
             self._client, self._config, self._serialize, self._deserialize
