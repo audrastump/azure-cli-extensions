@@ -18,7 +18,7 @@ from azext_fleet.constants import UPGRADE_TYPE_CONTROLPLANEONLY
 from azext_fleet.constants import UPGRADE_TYPE_FULL
 from azext_fleet.constants import UPGRADE_TYPE_NODEIMAGEONLY
 from azext_fleet.constants import UPGRADE_TYPE_ERROR_MESSAGES
-# from azext_fleet.constants import SUPPORTED_GATE_STATES_FILTERS, SUPPORTED_GATE_STATES_PATCH  # Will be available when v2025_08_01_preview API supports gates
+# from azext_fleet.constants import SUPPORTED_GATE_STATES_FILTERS, SUPPORTED_GATE_STATES_PATCH  # Will be available when v2025_04_01_preview API supports gates
 
 
 # pylint: disable=too-many-locals
@@ -755,7 +755,7 @@ def list_managed_namespaces(cmd,  # pylint: disable=unused-argument
     )
 
 
-# Gates functionality - will be available when v2025_08_01_preview API supports gates
+# Gates functionality - will be available when v2025_04_01_preview API supports gates
 # def list_gates_by_fleet(cmd,  # pylint: disable=unused-argument
 #                         client,
 #                         resource_group_name,

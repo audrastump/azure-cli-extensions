@@ -8,7 +8,7 @@ UPGRADE_TYPE_FULL = "Full"
 UPGRADE_TYPE_NODEIMAGEONLY = "NodeImageOnly"
 FLEET_1P_APP_ID = "609d2f62-527f-4451-bfd2-ac2c7850822c"
 
-# Gates functionality - will be available when v2025_08_01_preview API supports gates
+# Gates functionality - will be available when v2025_04_01_preview API supports gates
 # SUPPORTED_GATE_STATES_FILTERS = ["Pending", "Skipped", "Completed"]
 # SUPPORTED_GATE_STATES_PATCH = ["Completed"]
 

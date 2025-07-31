@@ -13,57 +13,57 @@ from azext_fleet._client_factory import (
     cf_fleet_update_strategies,
     cf_auto_upgrade_profiles,
     cf_auto_upgrade_profile_operations
-    # cf_gates  # Will be available when v2025_08_01_preview API supports gates
+    # cf_gates  # Will be available when v2025_04_01_preview API supports gates
 )
 
 
 def load_command_table(self, _):
 
     fleets_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.v2025_08_01_preview.operations._operations#FleetsOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#FleetsOperations.{}",
         operation_group="fleets",
         client_factory=cf_fleets
     )
 
     fleet_members_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.v2025_08_01_preview.operations._operations#FleetMembersOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#FleetMembersOperations.{}",
         operation_group="fleet_members",
         client_factory=cf_fleet_members
     )
 
     managed_namespaces_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.v2025_08_01_preview.operations._operations#FleetManagedNamespacesOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#FleetManagedNamespacesOperations.{}",
         operation_group="fleet_managed_namespaces",
         client_factory=cf_managed_namespaces
     )
 
     update_runs_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.v2025_08_01_preview.operations._operations#UpdateRunsOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#UpdateRunsOperations.{}",
         operation_group="update_runs",
         client_factory=cf_update_runs
     )
 
     fleet_update_strategy_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.v2025_08_01_preview.operations._operations#FleetUpdateStrategiesOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#FleetUpdateStrategiesOperations.{}",
         operation_group="fleet_update_strategies",
         client_factory=cf_fleet_update_strategies
     )
 
     auto_upgrade_profiles_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.v2025_08_01_preview.operations._operations#AutoUpgradeProfilesOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#AutoUpgradeProfilesOperations.{}",
         operation_group="auto_upgrade_profiles",
         client_factory=cf_auto_upgrade_profiles
     )
 
     auto_upgrade_profile_operations_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.v2025_08_01_preview.operations._operations#AutoUpgradeProfileOperationsOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#AutoUpgradeProfileOperationsOperations.{}",
         operation_group="auto_upgrade_profile_operations",
         client_factory=cf_auto_upgrade_profile_operations
     )
 
-    # Gates functionality - will be available when v2025_08_01_preview API supports gates
+    # Gates functionality - will be available when v2025_04_01_preview API supports gates
     # gates_sdk = CliCommandType(
-    #     operations_tmpl="azext_fleet.vendored_sdks.v2025_08_01_preview.operations._operations#GatesOperations.{}",
+    #     operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#GatesOperations.{}",
     #     operation_group="gates",
     #     client_factory=cf_gates
     # )
@@ -131,7 +131,7 @@ def load_command_table(self, _):
     with self.command_group("fleet autoupgradeprofile", auto_upgrade_profile_operations_sdk, client_factory=cf_auto_upgrade_profile_operations) as g:
         g.custom_command("generate-update-run", "generate_update_run", supports_no_wait=True)
 
-    # Gates functionality - will be available when v2025_08_01_preview API supports gates
+    # Gates functionality - will be available when v2025_04_01_preview API supports gates
     # with self.command_group("fleet gate", gates_sdk, client_factory=cf_gates) as g:
     #     g.custom_command("list", "list_gates_by_fleet")
     #     g.custom_show_command("show", "show_gate")
