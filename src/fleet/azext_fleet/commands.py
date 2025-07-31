@@ -8,57 +8,67 @@ from azure.cli.core.commands import CliCommandType
 from azext_fleet._client_factory import (
     cf_fleets,
     cf_fleet_members,
+    cf_managed_namespaces,
     cf_update_runs,
     cf_fleet_update_strategies,
     cf_auto_upgrade_profiles,
-    cf_auto_upgrade_profile_operations,
-    cf_gates
+    cf_auto_upgrade_profile_operations
+    # cf_gates  # Will be available when v2025_04_01_preview API supports gates
 )
 
 
 def load_command_table(self, _):
 
     fleets_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.operations._fleets_operations#FleetsOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#FleetsOperations.{}",
         operation_group="fleets",
         client_factory=cf_fleets
     )
 
     fleet_members_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.operations._fleet_members_operations#FleetMembersOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#FleetMembersOperations.{}",
         operation_group="fleet_members",
         client_factory=cf_fleet_members
     )
 
+    managed_namespaces_sdk = CliCommandType(
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#FleetManagedNamespacesOperations.{}",
+        operation_group="fleet_managed_namespaces",
+        client_factory=cf_managed_namespaces
+    )
+
     update_runs_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.operations._update_runs_operations#UpdateRunsOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#UpdateRunsOperations.{}",
         operation_group="update_runs",
         client_factory=cf_update_runs
     )
 
     fleet_update_strategy_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.operations._fleet_update_strategies_operations#FleetUpdateStrategiesOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#FleetUpdateStrategiesOperations.{}",
         operation_group="fleet_update_strategies",
         client_factory=cf_fleet_update_strategies
     )
 
     auto_upgrade_profiles_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.operations._auto_upgrade_profiles_operations#AutoUpgradeProfilesOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#AutoUpgradeProfilesOperations.{}",
         operation_group="auto_upgrade_profiles",
         client_factory=cf_auto_upgrade_profiles
     )
 
     auto_upgrade_profile_operations_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.operations._auto_upgrade_profile_operations_operations#AutoUpgradeProfileOperationsOperations.{}",
+        operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#AutoUpgradeProfileOperationsOperations.{}",
         operation_group="auto_upgrade_profile_operations",
         client_factory=cf_auto_upgrade_profile_operations
     )
 
-    gates_sdk = CliCommandType(
-        operations_tmpl="azext_fleet.vendored_sdks.operations._gates_operations#GatesOperations.{}",
-        operation_group="gates",
-        client_factory=cf_gates
-    )
+    # Gates functionality - will be available when v2025_04_01_preview API supports gates
+    # gates_sdk = CliCommandType(
+    #     operations_tmpl="azext_fleet.vendored_sdks.v2025_04_01_preview.operations._operations#GatesOperations.{}",
+    #     operation_group="gates",
+    #     client_factory=cf_gates
+    # )
+
+
 
     # fleets command group
     with self.command_group("fleet", fleets_sdk, client_factory=cf_fleets) as g:
@@ -79,6 +89,15 @@ def load_command_table(self, _):
         g.custom_command("list", "list_fleet_member")
         g.custom_show_command("show", "show_fleet_member")
         g.custom_command("reconcile", "reconcile_fleet_member", supports_no_wait=True)
+        g.wait_command("wait")
+
+    # fleet managed namespaces command group
+    with self.command_group("fleet managednamespace", managed_namespaces_sdk, client_factory=cf_managed_namespaces) as g:
+        g.custom_command("create", "create_managed_namespace", supports_no_wait=True)
+        g.custom_command("update", "update_managed_namespace", supports_no_wait=True)
+        g.custom_command("delete", "delete_managed_namespace", supports_no_wait=True, confirmation=True)
+        g.custom_command("list", "list_managed_namespaces")
+        g.custom_show_command("show", "show_managed_namespace")
         g.wait_command("wait")
 
     # fleet update runs command group
@@ -112,9 +131,11 @@ def load_command_table(self, _):
     with self.command_group("fleet autoupgradeprofile", auto_upgrade_profile_operations_sdk, client_factory=cf_auto_upgrade_profile_operations) as g:
         g.custom_command("generate-update-run", "generate_update_run", supports_no_wait=True)
 
-    # fleet gates command group
-    with self.command_group("fleet gate", gates_sdk, client_factory=cf_gates) as g:
-        g.custom_command("list", "list_gates_by_fleet")
-        g.custom_show_command("show", "show_gate")
-        g.custom_command("update", "update_gate")
-        g.custom_command("approve", "approve_gate")
+    # Gates functionality - will be available when v2025_04_01_preview API supports gates
+    # with self.command_group("fleet gate", gates_sdk, client_factory=cf_gates) as g:
+    #     g.custom_command("list", "list_gates_by_fleet")
+    #     g.custom_show_command("show", "show_gate")
+    #     g.custom_command("update", "update_gate")
+    #     g.custom_command("approve", "approve_gate")
+
+

@@ -9,12 +9,13 @@ from azure.cli.core.profiles import (
     ResourceType
 )
 
-CUSTOM_MGMT_FLEET = CustomResourceType('azext_fleet.vendored_sdks', 'ContainerServiceFleetMgmtClient')
+CUSTOM_MGMT_FLEET = CustomResourceType('azext_fleet.vendored_sdks.v2025_04_01_preview', 'ContainerServiceClient')
 
 
 # container service clients
 def get_container_service_client(cli_ctx, subscription_id=None):
-    return get_mgmt_service_client(cli_ctx, CUSTOM_MGMT_FLEET, subscription_id=subscription_id)
+    from .vendored_sdks.v2025_04_01_preview import ContainerServiceClient
+    return get_mgmt_service_client(cli_ctx, ContainerServiceClient, subscription_id=subscription_id)
 
 
 def cf_fleets(cli_ctx, *_):
@@ -25,8 +26,13 @@ def cf_fleet_members(cli_ctx, *_):
     return get_container_service_client(cli_ctx).fleet_members
 
 
-def cf_gates(cli_ctx, *_):
-    return get_container_service_client(cli_ctx).gates
+def cf_managed_namespaces(cli_ctx, *_):
+    return get_container_service_client(cli_ctx).fleet_managed_namespaces
+
+
+# Gates functionality - will be available when v2025_04_01_preview API supports gates
+# def cf_gates(cli_ctx, *_):
+#     return get_container_service_client(cli_ctx).gates
 
 
 def cf_update_runs(cli_ctx, *_):
