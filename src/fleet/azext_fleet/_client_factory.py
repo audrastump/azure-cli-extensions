@@ -4,17 +4,13 @@
 # --------------------------------------------------------------------------------------------
 
 from azure.cli.core.commands.client_factory import get_mgmt_service_client
-from azure.cli.core.profiles import (
-    CustomResourceType,
-    ResourceType
-)
-
-CUSTOM_MGMT_FLEET = CustomResourceType('azext_fleet.vendored_sdks.v2025_08_01_preview', 'ContainerServiceClient')
+from azure.cli.core.profiles import ResourceType
 
 
 # container service clients
 def get_container_service_client(cli_ctx, subscription_id=None):
-    return get_mgmt_service_client(cli_ctx, CUSTOM_MGMT_FLEET, subscription_id=subscription_id)
+    from .vendored_sdks.v2025_08_01_preview import ContainerServiceClient
+    return get_mgmt_service_client(cli_ctx, ContainerServiceClient, subscription_id=subscription_id)
 
 
 def cf_fleets(cli_ctx, *_):
