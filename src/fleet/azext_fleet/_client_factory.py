@@ -9,7 +9,7 @@ from azure.cli.core.profiles import (
     ResourceType
 )
 
-CUSTOM_MGMT_FLEET = CustomResourceType('azext_fleet.vendored_sdks.v2025_08_01_preview', 'ContainerServiceFleetMgmtClient')
+CUSTOM_MGMT_FLEET = CustomResourceType('azext_fleet.vendored_sdks.v2025_08_01_preview', 'ContainerServiceClient')
 
 
 # container service clients
