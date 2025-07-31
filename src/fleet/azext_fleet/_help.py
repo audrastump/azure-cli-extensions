@@ -462,9 +462,6 @@ helps['fleet managednamespace update'] = """
     type: command
     short-summary: Update a managed namespace.
     parameters:
-        - name: --namespace-name
-          type: string
-          short-summary: The name of the Kubernetes namespace to be created on member clusters.
         - name: --labels
           type: string
           short-summary: Labels to apply to the managed namespace.
@@ -473,7 +470,7 @@ helps['fleet managednamespace update'] = """
           short-summary: Annotations to apply to the managed namespace.
     examples:
         - name: Update a managed namespace's labels.
-          text: az fleet managednamespace update -g MyFleetResourceGroup -f MyFleetName -n MyManagedNamespace --labels env=staging
+          text: az fleet managednamespace update -g MyFleetResourceGroup -f MyFleetName -n my-namespace --labels env=staging
 """
 
 helps['fleet managednamespace list'] = """
@@ -489,7 +486,7 @@ helps['fleet managednamespace show'] = """
     short-summary: Gets a fleet managed namespace.
     examples:
         - name: Show the details of a specific managed namespace.
-          text: az fleet managednamespace show -g MyFleetResourceGroup -f MyFleetName -n MyManagedNamespace
+          text: az fleet managednamespace show -g MyFleetResourceGroup -f MyFleetName -n my-namespace
 """
 
 helps['fleet managednamespace delete'] = """
@@ -497,5 +494,5 @@ helps['fleet managednamespace delete'] = """
     short-summary: Deletes a fleet managed namespace.
     examples:
         - name: Delete a specific managed namespace.
-          text: az fleet managednamespace delete -g MyFleetResourceGroup -f MyFleetName -n MyManagedNamespace
+          text: az fleet managednamespace delete -g MyFleetResourceGroup -f MyFleetName -n my-namespace
 """
